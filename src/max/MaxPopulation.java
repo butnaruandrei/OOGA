@@ -1,3 +1,7 @@
+package max;
+
+import core.Population;
+
 import java.util.ArrayList;
 
 /**

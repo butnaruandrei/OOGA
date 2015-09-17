@@ -1,4 +1,7 @@
-import java.math.BigInteger;
+package max;
+
+import core.Individual;
+
 import java.util.ArrayList;
 import java.util.Random;
 

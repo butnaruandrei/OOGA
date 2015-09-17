@@ -1,4 +1,6 @@
-import java.math.BigInteger;
+import max.MaxIndividual;
+import max.MaxPopulation;
+
 import java.util.ArrayList;
 
 /**
