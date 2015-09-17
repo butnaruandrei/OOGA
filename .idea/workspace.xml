@@ -4,15 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/max/MaxPopulation.java" mnemonic="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c993d035-0cd4-46e0-9bfe-66660957698e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MOVED" beforePath="C:\Users\butna\Documents\GitHub\OOGA\src\Individual.java" afterPath="$PROJECT_DIR$/src/core/Individual.java" />
-      <change type="MOVED" beforePath="C:\Users\butna\Documents\GitHub\OOGA\src\MaxIndividual.java" afterPath="$PROJECT_DIR$/src/max/MaxIndividual.java" />
-      <change type="MOVED" beforePath="C:\Users\butna\Documents\GitHub\OOGA\src\MaxPopulation.java" afterPath="$PROJECT_DIR$/src/max/MaxPopulation.java" />
-      <change type="MOVED" beforePath="C:\Users\butna\Documents\GitHub\OOGA\src\Population.java" afterPath="$PROJECT_DIR$/src/core/Population.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="c993d035-0cd4-46e0-9bfe-66660957698e" name="Default" comment="" />
     <ignored path="OOGA.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
