@@ -29,5 +29,11 @@ public abstract class Population<T> {
         this.mutationProbability = mutationProbability;
     }
 
-    public abstract ArrayList<T> selection();
+    /**
+     * Default selection method ( Roulette Wheel Selection )
+     * @return
+     */
+    public ArrayList<T> selection() {
+        return null;
+    }
 }

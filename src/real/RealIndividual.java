@@ -1,4 +1,4 @@
-package max;
+package real;
 
 import core.Individual;
 
@@ -8,8 +8,8 @@ import java.util.Random;
 /**
  * Created by butna on 9/17/2015.
  */
-public class MaxIndividual extends Individual<Integer> {
-    public MaxIndividual(ArrayList<Integer> genes, double crossoverProbability, double mutationProbability) {
+public class RealIndividual extends Individual<Integer> {
+    public RealIndividual(ArrayList<Integer> genes, double crossoverProbability, double mutationProbability) {
         super(genes, crossoverProbability, mutationProbability);
     }
 
@@ -19,7 +19,7 @@ public class MaxIndividual extends Individual<Integer> {
      * @param crossoverProbability the crossover probability of this individual
      * @param mutationProbability the mutation probability of this individual
      */
-    public MaxIndividual(int genesLength, double crossoverProbability, double mutationProbability) {
+    public RealIndividual(int genesLength, double crossoverProbability, double mutationProbability) {
         super(genesLength, crossoverProbability, mutationProbability);
 
         Random rnd = new Random();

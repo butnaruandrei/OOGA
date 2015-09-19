@@ -1,5 +1,5 @@
-import max.MaxIndividual;
-import max.MaxPopulation;
+import real.RealIndividual;
+import real.RealPopulation;
 
 import java.util.ArrayList;
 
@@ -12,8 +12,8 @@ public class Main {
         genes.add(123);
         genes.add(45);
 
-        MaxIndividual mi = new MaxIndividual(genes, 0.8, 0.01);
+        RealIndividual mi = new RealIndividual(genes, 0.8, 0.01);
 
-        MaxPopulation mp = new MaxPopulation(10,2,0.8,0.01);
+        RealPopulation mp = new RealPopulation(10,2,0.8,0.01);
     }
 }
