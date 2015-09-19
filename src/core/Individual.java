@@ -10,6 +10,7 @@ public abstract class Individual<T> {
     protected int genesLength;
     protected double crossoverProbability;
     protected double mutationProbability;
+    protected double fitness;
 
     public Individual() {
         this.chromosome = null;

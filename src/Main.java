@@ -1,3 +1,4 @@
+import real.RealGeneticAlgorithm;
 import real.RealIndividual;
 import real.RealPopulation;
 
@@ -8,12 +9,6 @@ import java.util.ArrayList;
  */
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Integer> genes = new ArrayList<>();
-        genes.add(123);
-        genes.add(45);
-
-        RealIndividual mi = new RealIndividual(genes, 0.8, 0.01);
-
-        RealPopulation mp = new RealPopulation(10,2,0.8,0.01);
+        RealGeneticAlgorithm rga = new RealGeneticAlgorithm(100, 10, 2, 0.8, 0.1);
     }
 }
