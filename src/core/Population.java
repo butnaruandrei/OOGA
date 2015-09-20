@@ -2,6 +2,8 @@ package core;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Random;
 
 /**
  * Created by Butnaru Andrei-Madalin.
@@ -12,6 +14,7 @@ public abstract class Population<T> {
     protected double mutationProbability;
     protected int populationSize;
     protected int numberOfGenes;
+    protected boolean maximize;
 
     public Population() {
         this.individuals = null;
@@ -21,8 +24,9 @@ public abstract class Population<T> {
         this.mutationProbability = 0d;
     }
 
-    public Population(int populationSize, int numberOfGenes, double crossoverProbability, double mutationProbability) {
+    public Population(boolean maximize, int populationSize, int numberOfGenes, double crossoverProbability, double mutationProbability) {
         this.individuals = null;
+        this.maximize = maximize;
         this.populationSize = populationSize;
         this.numberOfGenes = numberOfGenes;
         this.crossoverProbability = crossoverProbability;
@@ -39,14 +43,6 @@ public abstract class Population<T> {
 
 
     public void mergeIndividualsWith(ArrayList<T> otherIndividuals){
-
-    }
-
-    public ArrayList<T> crossover(ArrayList<T> individuals){
-        return null;
-    }
-
-    public void sortByFitness(){
 
     }
 

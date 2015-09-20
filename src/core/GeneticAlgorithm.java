@@ -10,6 +10,7 @@ public abstract class GeneticAlgorithm<T> {
     protected double crossoverProbability;
     protected double mutationProbability;
     protected boolean elitism;
+    protected boolean maximize;
 
     public GeneticAlgorithm(){
         this.iterations = 0;
@@ -18,17 +19,19 @@ public abstract class GeneticAlgorithm<T> {
         this.mutationProbability = 0;
     }
 
-    public GeneticAlgorithm(int iterations, int populationSize, double crossoverProbability, double mutationProbability){
+    public GeneticAlgorithm(boolean maximize, int iterations, int populationSize, double crossoverProbability, double mutationProbability){
         this.iterations = iterations;
         this.population = null;
+        this.maximize = maximize;
         this.populationSize = populationSize;
         this.crossoverProbability = crossoverProbability;
         this.mutationProbability = mutationProbability;
     }
 
-    public GeneticAlgorithm(int iterations, T population, double crossoverProbability, double mutationProbability){
+    public GeneticAlgorithm(boolean maximize, int iterations, T population, double crossoverProbability, double mutationProbability){
         this.iterations = iterations;
         this.population = population;
+        this.maximize = maximize;
         this.crossoverProbability = crossoverProbability;
         this.mutationProbability = mutationProbability;
     }

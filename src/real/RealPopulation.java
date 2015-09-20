@@ -8,8 +8,8 @@ import java.util.ArrayList;
  * Created by Butnaru Andrei-Madalin.
  */
 public class RealPopulation extends Population<RealIndividual> {
-    public RealPopulation(int populationSize, int numberOfGenes, double crossoverProbability, double mutationProbability){
-        super(populationSize, numberOfGenes, crossoverProbability, mutationProbability);
+    public RealPopulation(boolean maximize, int populationSize, int numberOfGenes, double crossoverProbability, double mutationProbability){
+        super(maximize, populationSize, numberOfGenes, crossoverProbability, mutationProbability);
 
         this.individuals = new ArrayList<>();
         for (int i = 0; i < this.populationSize; i++) {

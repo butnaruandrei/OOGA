@@ -24,7 +24,7 @@ public class RealIndividual extends Individual<Integer> {
 
         Random rnd = new Random();
         this.chromosome = new ArrayList<>();
-        for(int i = 0; i < this.genesLength; i++)
+        for(int i = 0; i < this.numberOfGenes; i++)
             this.chromosome.add(rnd.nextInt());
     }
 
@@ -36,7 +36,5 @@ public class RealIndividual extends Individual<Integer> {
         return null;
     }
 
-    public Integer mutation() {
-        return null;
-    }
+    public void mutation(){}
 }

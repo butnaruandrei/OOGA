@@ -7,33 +7,40 @@ import java.util.ArrayList;
  */
 public abstract class Individual<T> {
     protected ArrayList<T> chromosome;
-    protected int genesLength;
+    protected int numberOfGenes;
     protected double crossoverProbability;
     protected double mutationProbability;
     protected double fitness;
 
     public Individual() {
         this.chromosome = null;
-        this.genesLength = 0;
+        this.numberOfGenes = 0;
         this.crossoverProbability = 0d;
         this.mutationProbability = 0d;
     }
 
     public Individual(ArrayList<T> chromosome, double crossoverProbability, double mutationProbability) {
         this.chromosome = chromosome;
-        this.genesLength = chromosome.size();
+        this.numberOfGenes = chromosome.size();
         this.crossoverProbability = crossoverProbability;
         this.mutationProbability = mutationProbability;
     }
 
-    public Individual(int genesLength, double crossoverProbability, double mutationProbability) {
+    public Individual(int numberOfGenes, double crossoverProbability, double mutationProbability) {
         this.chromosome = null;
-        this.genesLength = genesLength;
+        this.numberOfGenes = numberOfGenes;
         this.crossoverProbability = crossoverProbability;
         this.mutationProbability = mutationProbability;
+    }
+
+    public double getFitness(){
+        return fitness;
+    }
+
+    public double normalizeFitness(double fitSum) {
+        return fitness / fitSum;
     }
 
     public abstract double fitness();
-    public abstract ArrayList<T> crossover();
-    public abstract T mutation();
+    public abstract void mutation();
 }
