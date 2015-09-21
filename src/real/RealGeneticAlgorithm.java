@@ -8,10 +8,10 @@ import java.util.ArrayList;
  * Created by Butnaru Andrei-Madalin.
  */
 public class RealGeneticAlgorithm extends GeneticAlgorithm<RealPopulation> {
-    public RealGeneticAlgorithm(boolean maximize, int iterations, int populationSize, int numberOfGenes, double crossoverProbability, double mutationProbability){
-        super(maximize, iterations, populationSize, crossoverProbability, mutationProbability);
+    public RealGeneticAlgorithm(boolean maximize, boolean elitism, int iterations, int populationSize, int numberOfGenes, double crossoverProbability, double mutationProbability){
+        super(maximize, elitism, iterations, populationSize, crossoverProbability, mutationProbability);
 
-        this.population = new RealPopulation(maximize, populationSize, numberOfGenes, crossoverProbability, mutationProbability);
+        this.population = new RealPopulation(maximize, elitism, populationSize, numberOfGenes, crossoverProbability, mutationProbability);
     }
 
     public void runGeneration(){

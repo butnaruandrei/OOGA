@@ -15,18 +15,21 @@ public abstract class Population<T> {
     protected int populationSize;
     protected int numberOfGenes;
     protected boolean maximize;
+    protected boolean elitism;
 
     public Population() {
         this.individuals = null;
         this.populationSize = 0;
         this.numberOfGenes = 0;
+        this.elitism = false;
         this.crossoverProbability = 0d;
         this.mutationProbability = 0d;
     }
 
-    public Population(boolean maximize, int populationSize, int numberOfGenes, double crossoverProbability, double mutationProbability) {
+    public Population(boolean maximize, boolean elitism, int populationSize, int numberOfGenes, double crossoverProbability, double mutationProbability) {
         this.individuals = null;
         this.maximize = maximize;
+        this.elitism = elitism;
         this.populationSize = populationSize;
         this.numberOfGenes = numberOfGenes;
         this.crossoverProbability = crossoverProbability;
@@ -37,13 +40,8 @@ public abstract class Population<T> {
         return individuals.size();
     }
 
-    public void setIndividuals(ArrayList<T> individuals){
+    public void setIndividuals(ArrayList<T> individuals) {
         this.individuals = individuals;
-    }
-
-
-    public void mergeIndividualsWith(ArrayList<T> otherIndividuals){
-
     }
 
     /**

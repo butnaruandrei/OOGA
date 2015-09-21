@@ -12,8 +12,8 @@ import java.util.Random;
  * Created by Butnaru Andrei-Madalin.
  */
 public class BinaryPopulation extends Population<BinaryIndividual> {
-    public BinaryPopulation(boolean maximize, int populationSize, int numberOfGenes, int geneLength, double crossoverProbability, double mutationProbability){
-        super(maximize, populationSize, numberOfGenes, crossoverProbability, mutationProbability);
+    public BinaryPopulation(boolean maximize, boolean elitism, int populationSize, int numberOfGenes, int geneLength, double crossoverProbability, double mutationProbability){
+        super(maximize, elitism, populationSize, numberOfGenes, crossoverProbability, mutationProbability);
 
         this.individuals = new ArrayList<>();
         for (int i = 0; i < this.populationSize; i++) {
@@ -26,12 +26,26 @@ public class BinaryPopulation extends Population<BinaryIndividual> {
     }
 
     public void sortByFitness(){
+        sortByFitness(individuals);
+    }
+
+    public ArrayList<BinaryIndividual> sortByFitness(ArrayList<BinaryIndividual> individuals){
         individuals.sort(new Comparator<BinaryIndividual>() {
             @Override
             public int compare(BinaryIndividual o1, BinaryIndividual o2) {
-                return (maximize ? -1 : 1) * Double.compare(o1.getFitness(), o2.getFitness());
+                return (maximize ? -1 : 1) * o1.compareTo(o2);
             }
         });
+
+        return individuals;
+    }
+
+
+    public void mergeIndividualsWith(ArrayList<BinaryIndividual> otherIndividuals){
+        individuals.addAll(otherIndividuals);
+        computeFitness();
+        sortByFitness();
+        individuals = new ArrayList<>(individuals.subList(0, populationSize));
     }
 
     public ArrayList<Double> normalizeFitness(){
@@ -112,18 +126,30 @@ public class BinaryPopulation extends Population<BinaryIndividual> {
         int j;
         Random rand = new Random();
         Random crand = new Random();
+        BinaryIndividual ind1, ind2;
         ArrayList<BinaryIndividual> offsprings = new ArrayList<>();
 
         for (int i = 0; i < populationSize / 2; i++) {
-            BinaryIndividual ind1 = individuals.get(i);
-            do { j = rand.nextInt(populationSize); } while( j == i);
-            BinaryIndividual ind2 = individuals.get(j);
+            ind1 = individuals.get(i);
+            do { j = rand.nextInt(populationSize); } while (j == i);
+            ind2 = individuals.get(j);
 
-            if(crand.nextDouble() <= crossoverProbability)
+            if(crand.nextDouble() <= crossoverProbability) {
+                // crossover the parents to generate the offsrpings
                 offsprings.addAll(ind1.crossover(ind2, l));
+            } else {
+                // keep the parents
+                offsprings.add(ind1);
+                offsprings.add(ind2);
+            }
         }
 
         return offsprings;
+    }
+
+    public BinaryIndividual getFittest() {
+        sortByFitness();
+        return individuals.get(0);
     }
 
 }

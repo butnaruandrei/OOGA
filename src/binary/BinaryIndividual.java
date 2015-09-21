@@ -36,7 +36,7 @@ public class BinaryIndividual extends Individual<String> {
     public double fitness() {
         String g = chromosome.get(0);
         int x = Integer.parseInt(g, 2);
-        this.fitness = Math.sin(Math.PI * x / 256);
+        this.fitness = Math.sin(Math.PI * x / 256d);
 
         return this.fitness;
     }
@@ -93,7 +93,11 @@ public class BinaryIndividual extends Individual<String> {
         }
     }
 
-    public String generateRandomGene(){
+    public int compareTo(BinaryIndividual other){
+        return Double.compare(getFitness(), other.getFitness());
+    }
+
+    private String generateRandomGene(){
         Random rnd = new Random();
         StringBuilder gene = new StringBuilder();
         for (int i = 0; i < this.geneLength; i++) {
@@ -127,5 +131,11 @@ public class BinaryIndividual extends Individual<String> {
 
     public int getGeneLength(){
         return geneLength;
+    }
+
+    public String toString(){
+        StringBuilder str = new StringBuilder();
+        chromosome.forEach(str::append);
+        return str.toString();
     }
 }
