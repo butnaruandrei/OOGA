@@ -1,8 +1,6 @@
 package binary;
 
 import core.GeneticAlgorithm;
-import real.RealIndividual;
-import real.RealPopulation;
 
 import java.util.ArrayList;
 
@@ -21,13 +19,13 @@ public class BinaryGeneticAlgorithm extends GeneticAlgorithm<BinaryPopulation> {
         ArrayList<BinaryIndividual> selectedIndividuals = population.selection();
 
         ArrayList<BinaryIndividual> newIndividuals = population.crossover("singlePointCrossover", selectedIndividuals);
-
         newIndividuals.forEach(BinaryIndividual::mutation);
 
         if(elitism){
             population.mergeIndividualsWith(newIndividuals);
         } else {
             population.setIndividuals(newIndividuals);
+            population.sortByFitness();
         }
     }
 

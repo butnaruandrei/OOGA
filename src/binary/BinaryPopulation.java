@@ -21,91 +21,6 @@ public class BinaryPopulation extends Population<BinaryIndividual> {
         }
     }
 
-    public void computeFitness(){
-        individuals.forEach(BinaryIndividual::fitness);
-    }
-
-    public void sortByFitness(){
-        sortByFitness(individuals);
-    }
-
-    public ArrayList<BinaryIndividual> sortByFitness(ArrayList<BinaryIndividual> individuals){
-        individuals.sort(new Comparator<BinaryIndividual>() {
-            @Override
-            public int compare(BinaryIndividual o1, BinaryIndividual o2) {
-                return (maximize ? -1 : 1) * o1.compareTo(o2);
-            }
-        });
-
-        return individuals;
-    }
-
-
-    public void mergeIndividualsWith(ArrayList<BinaryIndividual> otherIndividuals){
-        individuals.addAll(otherIndividuals);
-        computeFitness();
-        sortByFitness();
-        individuals = new ArrayList<>(individuals.subList(0, populationSize));
-    }
-
-    public ArrayList<Double> normalizeFitness(){
-        double fitSum = fitnessSum();
-        ArrayList<Double> npop = new ArrayList<>();
-
-        for(BinaryIndividual individual : individuals){
-            npop.add(individual.normalizeFitness(fitSum));
-        }
-
-        return npop;
-    }
-
-    public ArrayList<Double> cumulativeFitness(){
-        ArrayList<Double> npop = normalizeFitness();
-        return cumulativeFitness(npop);
-    }
-
-    public ArrayList<Double> cumulativeFitness(ArrayList<Double> npop){
-        ArrayList<Double> cpop = new ArrayList<>();
-        double c = 0;
-        for (Double n : npop) {
-            cpop.add(c += n);
-        }
-
-        return cpop;
-    }
-
-    public ArrayList<BinaryIndividual> selection(){
-        return selection(cumulativeFitness());
-    }
-
-    public ArrayList<BinaryIndividual> selection(ArrayList<Double> cpop){
-        ArrayList<BinaryIndividual> selection = new ArrayList<>();
-        Random rnd = new Random();
-        double u;
-        for (int i = 0; i < populationSize; i++) {
-            u = rnd.nextDouble();
-            for (int j = 0; j < populationSize; j++) {
-                if( (j == 0 ? 0d : cpop.get(j - 1)) <= u && u < cpop.get(j)) {
-                    selection.add(individuals.get(j));
-                    break;
-                }
-
-            }
-        }
-
-        return selection;
-    }
-
-    public double fitnessSum(){
-        double fitSum = 0;
-        for(BinaryIndividual individual : individuals){
-            fitSum += individual.getFitness();
-        }
-
-        return fitSum;
-    }
-
-
     public ArrayList<BinaryIndividual> crossover(String type, ArrayList<BinaryIndividual> individuals){
         switch(type){
             case "singlePointCrossover":
@@ -147,9 +62,57 @@ public class BinaryPopulation extends Population<BinaryIndividual> {
         return offsprings;
     }
 
-    public BinaryIndividual getFittest() {
-        sortByFitness();
-        return individuals.get(0);
+
+    public void computeFitness(){
+        individuals.forEach(BinaryIndividual::fitness);
     }
 
+    public ArrayList<BinaryIndividual> sortByFitness(ArrayList<BinaryIndividual> individuals){
+        individuals.sort(new Comparator<BinaryIndividual>() {
+            @Override
+            public int compare(BinaryIndividual o1, BinaryIndividual o2) {
+                return (maximize ? -1 : 1) * o1.compareTo(o2);
+            }
+        });
+
+        return individuals;
+    }
+
+    public ArrayList<Double> normalizeFitness(){
+        double fitSum = fitnessSum();
+        ArrayList<Double> npop = new ArrayList<>();
+
+        for(BinaryIndividual individual : individuals){
+            npop.add(individual.normalizeFitness(fitSum));
+        }
+
+        return npop;
+    }
+
+    public ArrayList<BinaryIndividual> selection(ArrayList<Double> cpop){
+        ArrayList<BinaryIndividual> selection = new ArrayList<>();
+        Random rnd = new Random();
+        double u;
+        for (int i = 0; i < populationSize; i++) {
+            u = rnd.nextDouble();
+            for (int j = 0; j < populationSize; j++) {
+                if( (j == 0 ? 0d : cpop.get(j - 1)) <= u && u < cpop.get(j)) {
+                    selection.add(individuals.get(j));
+                    break;
+                }
+
+            }
+        }
+
+        return selection;
+    }
+
+    public double fitnessSum(){
+        double fitSum = 0;
+        for(BinaryIndividual individual : individuals){
+            fitSum += individual.getFitness();
+        }
+
+        return fitSum;
+    }
 }

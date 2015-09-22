@@ -48,9 +48,60 @@ public abstract class Population<T> {
      * Default selection method ( Roulette Wheel Selection )
      * @return
      */
-    public ArrayList<T> selection() {
-        return null;
+    public ArrayList<T> selection(){
+        return selection(cumulativeFitness());
     }
 
+    public void sortByFitness(){
+        sortByFitness(individuals);
+    }
+
+    public void mergeIndividualsWith(ArrayList<T> otherIndividuals){
+        individuals.addAll(otherIndividuals);
+        computeFitness();
+        sortByFitness();
+        individuals = new ArrayList<>(individuals.subList(0, populationSize));
+    }
+
+    public ArrayList<Double> cumulativeFitness(){
+        ArrayList<Double> npop = normalizeFitness();
+        return cumulativeFitness(npop);
+    }
+
+    public ArrayList<Double> cumulativeFitness(ArrayList<Double> npop){
+        ArrayList<Double> cpop = new ArrayList<>();
+        double c = 0;
+        for (Double n : npop) {
+            cpop.add(c += n);
+        }
+
+        return cpop;
+    }
+
+    public T getFittest() {
+        sortByFitness();
+        return individuals.get(0);
+    }
+
+    public ArrayList<T> selection(ArrayList<Double> cpop){
+        ArrayList<T> selection = new ArrayList<>();
+        Random rnd = new Random();
+        double u;
+        for (int i = 0; i < populationSize; i++) {
+            u = rnd.nextDouble();
+            for (int j = 0; j < populationSize; j++) {
+                if( (j == 0 ? 0d : cpop.get(j - 1)) <= u && u < cpop.get(j)) {
+                    selection.add(individuals.get(j));
+                    break;
+                }
+
+            }
+        }
+
+        return selection;
+    }
+
+    public abstract ArrayList<Double> normalizeFitness();
+    public abstract ArrayList<T> sortByFitness(ArrayList<T> individuals);
     public abstract void computeFitness();
 }
