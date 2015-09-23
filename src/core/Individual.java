@@ -41,6 +41,11 @@ public abstract class Individual<T> {
         return fitness / fitSum;
     }
 
+
+    public int compareTo(Individual<T> other){
+        return Double.compare(getFitness(), other.getFitness());
+    }
+
     public abstract double fitness();
     public abstract void mutation();
 }

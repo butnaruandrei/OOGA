@@ -101,9 +101,40 @@ public abstract class Population<T extends Individual> {
         return selection;
     }
 
-    public abstract ArrayList<Double> normalizeFitness();
-    public abstract ArrayList<T> sortByFitness(ArrayList<T> individuals);
-    public abstract void computeFitness();
+    public void computeFitness(){
+        individuals.forEach(T::fitness);
+    }
+
+    public ArrayList<T> sortByFitness(ArrayList<T> individuals){
+        individuals.sort(new Comparator<T>() {
+            @Override
+            public int compare(T o1, T o2) {
+                return (maximize ? -1 : 1) * o1.compareTo(o2);
+            }
+        });
+
+        return individuals;
+    }
+
+    public ArrayList<Double> normalizeFitness(){
+        double fitSum = fitnessSum();
+        ArrayList<Double> npop = new ArrayList<>();
+
+        for(T individual : individuals){
+            npop.add(individual.normalizeFitness(fitSum));
+        }
+
+        return npop;
+    }
+
+    public double fitnessSum(){
+        double fitSum = 0;
+        for(T individual : individuals){
+            fitSum += individual.getFitness();
+        }
+
+        return fitSum;
+    }
 
     public abstract ArrayList<T> crossover(ArrayList<T> selectedIndividuals);
 }

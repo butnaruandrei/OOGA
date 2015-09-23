@@ -93,10 +93,6 @@ public class BinaryIndividual extends Individual<String> {
         }
     }
 
-    public int compareTo(BinaryIndividual other){
-        return Double.compare(getFitness(), other.getFitness());
-    }
-
     private String generateRandomGene(){
         Random rnd = new Random();
         StringBuilder gene = new StringBuilder();
