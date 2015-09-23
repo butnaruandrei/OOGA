@@ -6,13 +6,13 @@ import real.RealGeneticAlgorithm;
  */
 public class Main {
     public static void main(String[] args) {
-        RealGA();
+        BinaryGA();
     }
 
     public static void BinaryGA(){
         int geneLength = 8;
 
-        BinaryGeneticAlgorithm ga = new BinaryGeneticAlgorithm(true, true, 100, 10, 1, geneLength, 0.8, 1d / geneLength);
+        BinaryGeneticAlgorithm ga = new BinaryGeneticAlgorithm("singlePointCrossover", true, true, 100, 10, 1, geneLength, 0.8, 1d / geneLength);
         ga.run();
         System.out.println(ga.getFittest());
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * Created by Butnaru Andrei-Madalin.
  */
-public class RealGeneticAlgorithm extends GeneticAlgorithm<RealPopulation> {
+public class RealGeneticAlgorithm extends GeneticAlgorithm<RealPopulation, RealIndividual> {
     protected double low;
     protected double high;
 
@@ -27,24 +27,5 @@ public class RealGeneticAlgorithm extends GeneticAlgorithm<RealPopulation> {
         this.low = low;
         this.high = high;
         this.population = new RealPopulation(maximize, elitism, populationSize, numberOfGenes, low, high, crossoverProbability, mutationProbability);
-    }
-
-    public void runGeneration(){
-        population.computeFitness();
-        ArrayList<RealIndividual> selectedIndividuals = population.selection();
-
-        ArrayList<RealIndividual> newIndividuals = population.crossover(selectedIndividuals);
-
-        newIndividuals.forEach(RealIndividual::mutation);
-
-        if(elitism){
-            population.mergeIndividualsWith(newIndividuals);
-        } else {
-            population.setIndividuals(newIndividuals);
-        }
-    }
-
-    public RealIndividual getFittest(){
-        return population.getFittest();
     }
 }

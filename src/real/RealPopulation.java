@@ -1,5 +1,6 @@
 package real;
 
+import core.Individual;
 import core.Population;
 
 import java.util.ArrayList;

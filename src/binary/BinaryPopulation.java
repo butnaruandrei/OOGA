@@ -12,17 +12,21 @@ import java.util.Random;
  * Created by Butnaru Andrei-Madalin.
  */
 public class BinaryPopulation extends Population<BinaryIndividual> {
-    public BinaryPopulation(boolean maximize, boolean elitism, int populationSize, int numberOfGenes, int geneLength, double crossoverProbability, double mutationProbability){
+    protected String crossoverType;
+
+    public BinaryPopulation(String crossoverType, boolean maximize, boolean elitism, int populationSize, int numberOfGenes, int geneLength, double crossoverProbability, double mutationProbability){
         super(maximize, elitism, populationSize, numberOfGenes, crossoverProbability, mutationProbability);
 
+        this.crossoverType = crossoverType;
         this.individuals = new ArrayList<>();
         for (int i = 0; i < this.populationSize; i++) {
             this.individuals.add(new BinaryIndividual(numberOfGenes, geneLength, crossoverProbability, mutationProbability));
         }
     }
 
-    public ArrayList<BinaryIndividual> crossover(String type, ArrayList<BinaryIndividual> individuals){
-        switch(type){
+
+    public ArrayList<BinaryIndividual> crossover(ArrayList<BinaryIndividual> individuals){
+        switch(this.crossoverType){
             case "singlePointCrossover":
                 return crossover(individuals, 1);
             case "doublePointCrossover":

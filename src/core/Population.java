@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Created by Butnaru Andrei-Madalin.
  */
-public abstract class Population<T> {
+public abstract class Population<T extends Individual> {
     protected ArrayList<T> individuals;
     protected double crossoverProbability;
     protected double mutationProbability;
@@ -104,4 +104,6 @@ public abstract class Population<T> {
     public abstract ArrayList<Double> normalizeFitness();
     public abstract ArrayList<T> sortByFitness(ArrayList<T> individuals);
     public abstract void computeFitness();
+
+    public abstract ArrayList<T> crossover(ArrayList<T> selectedIndividuals);
 }

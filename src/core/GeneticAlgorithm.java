@@ -1,9 +1,13 @@
 package core;
 
+import com.sun.org.apache.bcel.internal.generic.POP;
+
+import java.util.ArrayList;
+
 /**
  * Created by Butnaru Andrei-Madalin.
  */
-public abstract class GeneticAlgorithm<T> {
+public abstract class GeneticAlgorithm<T extends Population, K extends Individual> {
     protected T population;
     protected int populationSize;
     protected int iterations;
@@ -45,5 +49,22 @@ public abstract class GeneticAlgorithm<T> {
         }
     }
 
-    public abstract void runGeneration();
+    public void runGeneration(){
+        population.computeFitness();
+        ArrayList<K> selectedIndividuals = population.selection();
+
+        ArrayList<K> newIndividuals = population.crossover(selectedIndividuals);
+        newIndividuals.forEach(K::mutation);
+
+        if(elitism){
+            population.mergeIndividualsWith(newIndividuals);
+        } else {
+            population.setIndividuals(newIndividuals);
+            population.sortByFitness();
+        }
+    }
+
+    public K getFittest(){
+        return (K)population.getFittest();
+    }
 }
