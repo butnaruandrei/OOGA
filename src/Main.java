@@ -1,12 +1,17 @@
 import binary.BinaryGeneticAlgorithm;
+import real.RSAGeneticAlgorithm;
 import real.RealGeneticAlgorithm;
+import rsa.FermatGeneticAlgorithm;
+import utils.RSA;
+
+import java.math.BigInteger;
 
 /**
  * Created by Butnaru Andrei-Madalin.
  */
 public class Main {
     public static void main(String[] args) {
-        RealGA();
+        FermatGA();
     }
 
     public static void BinaryGA(){
@@ -18,7 +23,37 @@ public class Main {
     }
 
     public static void RealGA(){
-        RealGeneticAlgorithm ga = new RealGeneticAlgorithm(true, true, 100, 10, 1, 0, 256, 0.75, 0.01);
+        RealGeneticAlgorithm ga = new RealGeneticAlgorithm(true, true, 10000, 10, 1, 0, 256, 0.75, 0.01);
+        ga.run();
+        System.out.println(ga.getFittest());
+    }
+
+    public static void RSAGA(){
+        int rsaBitLength = 16;
+        int rsaParamsLength = rsaBitLength / 2;
+
+        BigInteger maxValue = new BigInteger("2").pow(rsaParamsLength).subtract(BigInteger.ONE);
+        RSA rsa = new RSA();
+        rsa.Initialize(rsaParamsLength);
+
+        System.out.println(rsa.p + " " + rsa.q);
+
+        RSAGeneticAlgorithm ga = new RSAGeneticAlgorithm(false, true, 10000, 10, 2, new BigInteger("2"), maxValue, 0.75, 0.01, rsa);
+        ga.run();
+        System.out.println(ga.getFittest());
+    }
+
+    public static void FermatGA(){
+        int rsaBitLength = 32;
+        int rsaParamsLength = rsaBitLength / 2;
+
+        BigInteger maxValue = new BigInteger("2").pow(rsaParamsLength).subtract(BigInteger.ONE);
+        RSA rsa = new RSA();
+        rsa.Initialize(rsaParamsLength);
+
+        System.out.println(rsa.p + " " + rsa.q);
+
+        FermatGeneticAlgorithm ga = new FermatGeneticAlgorithm(true, true, 10000, 10, 1, new BigInteger("2"), maxValue, 0.75, 0.01, rsa);
         ga.run();
         System.out.println(ga.getFittest());
     }

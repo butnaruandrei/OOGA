@@ -17,7 +17,7 @@ public class RealIndividual extends Individual<Double> {
     private Random crossover_random = new Random();
     private Random bool_random = new Random();
     private Random double_random = new Random();
-    double k = 8; // precizia operatorului de mutatie; k apartine [4, 20]
+    double k = 7; // precizia operatorului de mutatie; k apartine [4, 20]
     double r = 0.01; // r apartile [10^-6, 10^-1]; cu cat % din range sa se faca mutatia
     double ri = r * range;
 
@@ -98,15 +98,4 @@ public class RealIndividual extends Individual<Double> {
             chromosome.set(i, gene);
         }
     }
-
-    public int compareTo(RealIndividual other){
-        return Double.compare(getFitness(), other.getFitness());
-    }
-
-    public String toString(){
-        StringBuilder str = new StringBuilder();
-        chromosome.forEach(str::append);
-        return str.toString();
-    }
-
 }

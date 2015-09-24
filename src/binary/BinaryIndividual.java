@@ -128,10 +128,4 @@ public class BinaryIndividual extends Individual<String> {
     public int getGeneLength(){
         return geneLength;
     }
-
-    public String toString(){
-        StringBuilder str = new StringBuilder();
-        chromosome.forEach(str::append);
-        return str.toString();
-    }
 }

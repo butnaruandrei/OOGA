@@ -46,6 +46,13 @@ public abstract class Individual<T> {
         return Double.compare(getFitness(), other.getFitness());
     }
 
+
+    public String toString(){
+        StringBuilder str = new StringBuilder();
+        chromosome.forEach(str::append);
+        return str.toString();
+    }
+
     public abstract double fitness();
     public abstract void mutation();
 }

@@ -44,13 +44,17 @@ public abstract class GeneticAlgorithm<T extends Population, K extends Individua
     }
 
     public void run(){
-        for (int i = 0; i < iterations; i++) {
+//        for (int i = 0; i < iterations; i++) {
+//            runGeneration();
+//        }
+        while(true){
             runGeneration();
         }
     }
 
     public void runGeneration(){
         population.computeFitness();
+        population.sortByFitness();
         ArrayList<K> selectedIndividuals = population.selection();
 
         ArrayList<K> newIndividuals = population.crossover(selectedIndividuals);
