@@ -21,9 +21,9 @@ public class RSAIndividual extends BigIndividual<BigInteger> {
     private Random crossover_random = new Random();
     private Random bool_random = new Random();
     private Random double_random = new Random();
-    double k = 16; // precizia operatorului de mutatie; k apartine [4, 20]
+    double k = 6; // precizia operatorului de mutatie; k apartine [4, 20]
 
-    BigInteger r = new BigInteger("1000"); // r apartile [10^1, 10^6]; cu cat % din range sa se faca mutatia
+    BigInteger r = new BigInteger("10"); // r apartile [10^1, 10^6]; cu cat % din range sa se faca mutatia
     BigDecimal ri;
 
     RSA rsa;
@@ -138,10 +138,10 @@ public class RSAIndividual extends BigIndividual<BigInteger> {
                 gene = gene.subtract(ri.multiply(new BigDecimal(a)).toBigInteger());
 
             if(gene.compareTo(low) == -1)
-                gene = low;
+                gene = high;
 
             if(gene.compareTo(high) == 1)
-                gene = high;
+                gene = low;
 
             chromosome.set(i, gene);
         }

@@ -11,7 +11,7 @@ import java.math.BigInteger;
  */
 public class Main {
     public static void main(String[] args) {
-        FermatGA();
+        RSAGA();
     }
 
     public static void BinaryGA(){
@@ -38,7 +38,7 @@ public class Main {
 
         System.out.println(rsa.p + " " + rsa.q);
 
-        RSAGeneticAlgorithm ga = new RSAGeneticAlgorithm(false, true, 10000, 100, 2, new BigInteger("2"), maxValue, 0.75, 0.01, rsa);
+        RSAGeneticAlgorithm ga = new RSAGeneticAlgorithm(false, true, 10000, 500, 2, new BigInteger("2"), maxValue, 0.75, 0.3, rsa);
         ga.run();
         System.out.println(ga.getFittest());
     }

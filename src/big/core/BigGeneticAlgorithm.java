@@ -59,7 +59,6 @@ public abstract class BigGeneticAlgorithm<T extends BigPopulation, K extends Big
 
     public void runGeneration(){
         population.computeFitness();
-        population.sortByFitness();
         ArrayList<K> selectedIndividuals = population.selection();
 
         ArrayList<K> newIndividuals = population.crossover(selectedIndividuals);
