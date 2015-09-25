@@ -1,5 +1,6 @@
 package rsa;
 
+import big.core.BigIndividual;
 import core.Individual;
 import utils.RSA;
 
@@ -11,7 +12,7 @@ import java.util.Random;
 /**
  * Created by butna on 9/17/2015.
  */
-public class RSAIndividual extends Individual<BigInteger> {
+public class RSAIndividual extends BigIndividual<BigInteger> {
     protected BigInteger low;
     protected BigInteger high;
     protected BigInteger range;
@@ -20,9 +21,9 @@ public class RSAIndividual extends Individual<BigInteger> {
     private Random crossover_random = new Random();
     private Random bool_random = new Random();
     private Random double_random = new Random();
-    double k = 4; // precizia operatorului de mutatie; k apartine [4, 20]
+    double k = 16; // precizia operatorului de mutatie; k apartine [4, 20]
 
-    BigInteger r = new BigInteger("100"); // r apartile [10^1, 10^6]; cu cat % din range sa se faca mutatia
+    BigInteger r = new BigInteger("1000"); // r apartile [10^1, 10^6]; cu cat % din range sa se faca mutatia
     BigDecimal ri;
 
     RSA rsa;
@@ -64,13 +65,12 @@ public class RSAIndividual extends Individual<BigInteger> {
         }
     }
 
-    public double fitness() {
+    public BigInteger fitness() {
         BigInteger p = chromosome.get(0);
         BigInteger q = chromosome.get(1);
         BigInteger prod = p.multiply(q);
 
-        this.fitness = prod.multiply(BigInteger.valueOf(-1)).add(rsa.n).abs().doubleValue();
-        // System.out.println("fitness=" + fitness + "p=" + p + " q=" + q + " rsa.p=" + rsa.p + " rsa.q=" + rsa.q);
+        this.fitness = prod.multiply(BigInteger.valueOf(-1)).add(rsa.n).abs();
 
         if(prod.equals(rsa.n)) {
             System.out.println("p=" + p + " q=" + q + " rsa.p=" + rsa.p + " rsa.q=" + rsa.q);
@@ -79,6 +79,15 @@ public class RSAIndividual extends Individual<BigInteger> {
         }
 
         return this.fitness;
+    }
+
+    public void showLog(){
+        BigInteger p = chromosome.get(0);
+        BigInteger q = chromosome.get(1);
+        BigInteger prod = p.multiply(q);
+
+        this.fitness = prod.multiply(BigInteger.valueOf(-1)).add(rsa.n).abs();
+        System.out.println("fitness=" + fitness + " p=" + p + " q=" + q + " rsa.p=" + rsa.p + " rsa.q=" + rsa.q);
     }
 
     public ArrayList<RSAIndividual> crossover(RSAIndividual other) {

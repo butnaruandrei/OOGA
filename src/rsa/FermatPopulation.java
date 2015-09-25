@@ -1,9 +1,9 @@
 package rsa;
 
+import big.core.BigPopulation;
 import core.Population;
 import utils.RSA;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,13 +11,12 @@ import java.util.Random;
 /**
  * Created by Butnaru Andrei-Madalin.
  */
-public class FermatPopulation extends Population<FermatIndividual> {
+public class FermatPopulation extends BigPopulation<FermatIndividual> {
     protected BigInteger low;
     protected BigInteger high;
 
     private Random rand = new Random();
     private Random crossover_random = new Random();
-    private Random selection_random = new Random();
 
     public FermatPopulation(boolean maximize, boolean elitism, int populationSize, int numberOfGenes, BigInteger low, BigInteger high, double crossoverProbability, double mutationProbability, RSA rsa){
         super(maximize, elitism, populationSize, numberOfGenes, crossoverProbability, mutationProbability);
@@ -35,7 +34,7 @@ public class FermatPopulation extends Population<FermatIndividual> {
         FermatIndividual ind1, ind2;
         ArrayList<FermatIndividual> offsprings = new ArrayList<>();
 
-        for (int i = 0; i < populationSize; i++) {
+        for (int i = 0; i < populationSize / 2; i++) {
             ind1 = individuals.get(i);
             do { j = rand.nextInt(populationSize); } while (j == i);
             ind2 = individuals.get(j);

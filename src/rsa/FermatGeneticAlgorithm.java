@@ -1,5 +1,6 @@
 package rsa;
 
+import big.core.BigGeneticAlgorithm;
 import core.GeneticAlgorithm;
 import utils.RSA;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Created by Butnaru Andrei-Madalin.
  */
-public class FermatGeneticAlgorithm extends GeneticAlgorithm<FermatPopulation, FermatIndividual> {
+public class FermatGeneticAlgorithm extends BigGeneticAlgorithm<FermatPopulation, FermatIndividual> {
     protected BigInteger low;
     protected BigInteger high;
 

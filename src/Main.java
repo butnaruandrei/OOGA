@@ -29,21 +29,6 @@ public class Main {
     }
 
     public static void RSAGA(){
-        int rsaBitLength = 16;
-        int rsaParamsLength = rsaBitLength / 2;
-
-        BigInteger maxValue = new BigInteger("2").pow(rsaParamsLength).subtract(BigInteger.ONE);
-        RSA rsa = new RSA();
-        rsa.Initialize(rsaParamsLength);
-
-        System.out.println(rsa.p + " " + rsa.q);
-
-        RSAGeneticAlgorithm ga = new RSAGeneticAlgorithm(false, true, 10000, 10, 2, new BigInteger("2"), maxValue, 0.75, 0.01, rsa);
-        ga.run();
-        System.out.println(ga.getFittest());
-    }
-
-    public static void FermatGA(){
         int rsaBitLength = 32;
         int rsaParamsLength = rsaBitLength / 2;
 
@@ -53,7 +38,22 @@ public class Main {
 
         System.out.println(rsa.p + " " + rsa.q);
 
-        FermatGeneticAlgorithm ga = new FermatGeneticAlgorithm(true, true, 10000, 10, 1, new BigInteger("2"), maxValue, 0.75, 0.01, rsa);
+        RSAGeneticAlgorithm ga = new RSAGeneticAlgorithm(false, true, 10000, 100, 2, new BigInteger("2"), maxValue, 0.75, 0.01, rsa);
+        ga.run();
+        System.out.println(ga.getFittest());
+    }
+
+    public static void FermatGA(){
+        int rsaBitLength = 64;
+        int rsaParamsLength = rsaBitLength / 2;
+
+        BigInteger maxValue = new BigInteger("2").pow(rsaParamsLength).subtract(BigInteger.ONE);
+        RSA rsa = new RSA();
+        rsa.Initialize(rsaParamsLength);
+
+        System.out.println(rsa.p + " " + rsa.q);
+
+        FermatGeneticAlgorithm ga = new FermatGeneticAlgorithm(true, true, 10000, 25, 1, new BigInteger("2"), maxValue, 0.75, 0.3, rsa);
         ga.run();
         System.out.println(ga.getFittest());
     }

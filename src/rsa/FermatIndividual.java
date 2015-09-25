@@ -1,29 +1,32 @@
 package rsa;
 
+import big.core.BigIndividual;
 import core.Individual;
 import utils.Factoring;
 import utils.RSA;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Created by butna on 9/17/2015.
  */
-public class FermatIndividual extends Individual<BigInteger> {
+public class FermatIndividual extends BigIndividual<BigInteger> {
     protected BigInteger low;
     protected BigInteger high;
     protected BigInteger range;
+    private BigInteger MIN_VALUE = new BigInteger("-2000000000");
 
     private Random init_random = new Random();
     private Random crossover_random = new Random();
     private Random bool_random = new Random();
     private Random double_random = new Random();
-    double k = 4; // precizia operatorului de mutatie; k apartine [4, 20]
+    double k = 16; // precizia operatorului de mutatie; k apartine [4, 20]
 
-    BigInteger r = new BigInteger("100"); // r apartile [10^1, 10^6]; cu cat % din range sa se faca mutatia
+    BigInteger r = new BigInteger("10000"); // r apartile [10^1, 10^6]; cu cat % din range sa se faca mutatia
     BigDecimal ri;
 
     RSA rsa;
@@ -65,21 +68,21 @@ public class FermatIndividual extends Individual<BigInteger> {
         }
     }
 
-    public double fitness() {
+    public BigInteger fitness() {
         BigInteger a = chromosome.get(0);
         BigInteger b, sqrtb,xp, xq;
-        double distance;
+        BigInteger distance;
 
         BigInteger a2 = a.multiply(a);
 
         if(a2.compareTo(rsa.n) == -1) {
-            this.fitness = -Double.MAX_VALUE;
+            this.fitness = MIN_VALUE;
             return this.fitness;
         }
 
         BigInteger sqrt = Factoring.sqrt(a2.subtract(rsa.n));
         BigInteger sqrt2 = sqrt.multiply(sqrt);
-        distance = rsa.n.subtract(a2.subtract(sqrt2)).doubleValue();
+        distance = rsa.n.subtract(a2.subtract(sqrt2));
 
         // DEMO FOR TESTING PURPOSE!!! ------->>>>>>>>>>>>>>>>>>>>
         b = a2.subtract(rsa.n);
@@ -88,18 +91,38 @@ public class FermatIndividual extends Individual<BigInteger> {
         xp = a.subtract(sqrtb);
         xq = a.add(sqrtb);
 
-        System.out.println("a = " + a + " distance = " + distance + " xp = " + xp + " xq = " + xq + "real p = " + rsa.p + "real q =" + rsa.q);
+        // System.out.println("a = " + a + " distance = " + distance + " xp = " + xp + " xq = " + xq + "real p = " + rsa.p + "real q =" + rsa.q);
 
         if(xp.multiply(xq).compareTo(rsa.n) == 0){
             System.out.println("GATA!!!!!!!!!!!!!!!!");
-            System.out.println("a = " + a + " distance = " + distance + " xp = " + xp + " xq = " + xq + "real p = " + rsa.p + "real q =" + rsa.q);
+            System.out.println("a = " + a + " distance = " + distance + " xp = " + xp + " xq = " + xq + " n=" + xp.multiply(xq) +  "real p = " + rsa.p + "real q =" + rsa.q + " real n=" + rsa.n);
             System.exit(0);
         }
 
         // <<<<<<<<<<<<<<<-------------------
 
         this.fitness = distance;
-        return distance;
+        return this.fitness;
+    }
+
+    public void showLog(){
+        BigInteger a = chromosome.get(0);
+        BigInteger b, sqrtb,xp, xq;
+        BigInteger distance;
+
+        BigInteger a2 = a.multiply(a);
+
+        BigInteger sqrt = Factoring.sqrt(a2.subtract(rsa.n));
+        BigInteger sqrt2 = sqrt.multiply(sqrt);
+        distance = rsa.n.subtract(a2.subtract(sqrt2));
+
+        b = a2.subtract(rsa.n);
+        sqrtb = Factoring.sqrt(b);
+
+        xp = a.subtract(sqrtb);
+        xq = a.add(sqrtb);
+
+        System.out.println("a = " + a + " distance = " + distance + " xp = " + xp + " xq = " + xq + " n=" + xp.multiply(xq) +  "real p = " + rsa.p + "real q =" + rsa.q + " real n=" + rsa.n);
     }
 
     public ArrayList<FermatIndividual> crossover(FermatIndividual other) {
@@ -159,7 +182,7 @@ public class FermatIndividual extends Individual<BigInteger> {
         }
     }
 
-    public BigDecimal normalizeFitness(BigDecimal fitSum) {
-        return new BigDecimal(fitness).divide(fitSum);
+    public BigDecimal normalizeFitness(BigInteger fitSum) {
+        return new BigDecimal(fitness).divide(new BigDecimal(fitSum), 16, RoundingMode.HALF_UP);
     }
 }

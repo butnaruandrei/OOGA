@@ -1,5 +1,6 @@
 package rsa;
 
+import big.core.BigPopulation;
 import core.Population;
 import utils.RSA;
 
@@ -10,7 +11,7 @@ import java.util.Random;
 /**
  * Created by Butnaru Andrei-Madalin.
  */
-public class RSAPopulation extends Population<RSAIndividual> {
+public class RSAPopulation extends BigPopulation<RSAIndividual> {
     protected BigInteger low;
     protected BigInteger high;
 
@@ -34,7 +35,7 @@ public class RSAPopulation extends Population<RSAIndividual> {
         RSAIndividual ind1, ind2;
         ArrayList<RSAIndividual> offsprings = new ArrayList<>();
 
-        for (int i = 0; i < populationSize; i++) {
+        for (int i = 0; i < populationSize / 2; i++) {
             ind1 = individuals.get(i);
             do { j = rand.nextInt(populationSize); } while (j == i);
             ind2 = individuals.get(j);

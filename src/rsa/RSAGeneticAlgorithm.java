@@ -1,5 +1,6 @@
 package real;
 
+import big.core.BigGeneticAlgorithm;
 import core.GeneticAlgorithm;
 import rsa.FermatIndividual;
 import rsa.RSAIndividual;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Butnaru Andrei-Madalin.
  */
-public class RSAGeneticAlgorithm extends GeneticAlgorithm<RSAPopulation, FermatIndividual> {
+public class RSAGeneticAlgorithm extends BigGeneticAlgorithm<RSAPopulation, RSAIndividual> {
     protected BigInteger low;
     protected BigInteger high;
 
@@ -40,8 +41,9 @@ public class RSAGeneticAlgorithm extends GeneticAlgorithm<RSAPopulation, FermatI
 
         ArrayList<RSAIndividual> newIndividuals = population.crossover(selectedIndividuals);
         newIndividuals.forEach(RSAIndividual::mutation);
-
         newIndividuals.forEach(RSAIndividual::makePrime);
+
+        newIndividuals.forEach(RSAIndividual::fitness);
 
         if(elitism){
             population.mergeIndividualsWith(newIndividuals);
