@@ -36,15 +36,14 @@ public class RSAGeneticAlgorithm extends BigGeneticAlgorithm<RSAPopulation, RSAI
     }
 
     public void runGeneration(){
-        population.computeFitness();
         ArrayList<RSAIndividual> selectedIndividuals = population.selection();
 
         ArrayList<RSAIndividual> newIndividuals = population.crossover(selectedIndividuals);
         newIndividuals.forEach(RSAIndividual::mutation);
+
         newIndividuals.forEach(RSAIndividual::makePrime);
 
         newIndividuals.forEach(RSAIndividual::fitness);
-
         if(elitism){
             population.mergeIndividualsWith(newIndividuals);
         } else {

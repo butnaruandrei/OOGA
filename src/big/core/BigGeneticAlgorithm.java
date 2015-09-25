@@ -47,6 +47,8 @@ public abstract class BigGeneticAlgorithm<T extends BigPopulation, K extends Big
 //        }
         int i = 0;
 
+        population.computeFitness();
+
         while(true){
             runGeneration();
 
@@ -58,14 +60,13 @@ public abstract class BigGeneticAlgorithm<T extends BigPopulation, K extends Big
     }
 
     public void runGeneration(){
-        population.computeFitness();
         ArrayList<K> selectedIndividuals = population.selection();
 
         ArrayList<K> newIndividuals = population.crossover(selectedIndividuals);
         newIndividuals.forEach(K::mutation);
 
+        newIndividuals.forEach(K::fitness);
         if(elitism){
-            newIndividuals.forEach(K::fitness);
             population.mergeIndividualsWith(newIndividuals);
         } else {
             population.setIndividuals(newIndividuals);
