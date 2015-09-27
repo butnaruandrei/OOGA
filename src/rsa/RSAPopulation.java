@@ -54,6 +54,7 @@ public class RSAPopulation extends BigPopulation<RSAIndividual> {
     }
 
     public void mergeIndividualsWith(ArrayList<RSAIndividual> otherIndividuals){
+        computeFitness();
         individuals.addAll(otherIndividuals);
         sortByFitness();
         individuals = new ArrayList<>(individuals.subList(0, populationSize));

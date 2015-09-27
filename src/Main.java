@@ -13,7 +13,7 @@ import java.math.BigInteger;
  */
 public class Main {
     public static void main(String[] args) {
-        BinaryRSAGA();
+        RSAGA();
     }
 
     public static void BinaryGA(){
@@ -31,7 +31,7 @@ public class Main {
     }
 
     public static void RSAGA(){
-        int rsaBitLength = 16;
+        int rsaBitLength = 64;
         int rsaParamsLength = rsaBitLength / 2;
 
         BigInteger maxValue = new BigInteger("2").pow(rsaParamsLength).subtract(BigInteger.ONE);
@@ -40,16 +40,15 @@ public class Main {
 
         System.out.println(rsa.p + " " + rsa.q);
 
-        RSAGeneticAlgorithm ga = new RSAGeneticAlgorithm(false, true, 10000, 25, 2, new BigInteger("2"), maxValue, 0.75, 0.3, rsa);
+        RSAGeneticAlgorithm ga = new RSAGeneticAlgorithm(false, true, 10000, 100, 2, new BigInteger("2"), maxValue, 0.8, 0.03, rsa);
         ga.run();
         System.out.println(ga.getFittest());
     }
 
     public static void BinaryRSAGA(){
-        int rsaBitLength = 16;
+        int rsaBitLength = 32;
         int rsaParamsLength = rsaBitLength / 2;
 
-        BigInteger maxValue = new BigInteger("2").pow(rsaParamsLength).subtract(BigInteger.ONE);
         RSA rsa = new RSA();
         rsa.Initialize(rsaParamsLength);
 

@@ -68,39 +68,36 @@ public class RSABinaryIndividual extends BigIndividual<BigInteger> {
 
     public ArrayList<RSABinaryIndividual> crossover(RSABinaryIndividual other, int l){
         ArrayList<RSABinaryIndividual> offspings = new ArrayList<>();
-        String p1, p2;
-        StringBuilder tmp1;
-        StringBuilder tmp2;
-        int positions[] = generateRandomPartitions(l, geneLength);
+        String p1 = "", p2 = "";
+        StringBuilder tmp1, tmp2;
+        int positions[] = generateRandomPartitions(l, geneLength * numberOfGenes);
 
         ArrayList<BigInteger> off1 = new ArrayList<>();
         ArrayList<BigInteger> off2 = new ArrayList<>();
 
         for (int i = 0; i <  numberOfGenes; i++) {
-            p1 = appendZeros(chromosome.get(i).toString(2));
-            p2 = appendZeros(other.chromosome.get(i).toString(2));
-
-            if(geneCrossover.nextDouble() <= 0.5) {
-                tmp1 = new StringBuilder();
-                tmp2 = new StringBuilder();
-
-                for (int j = 0; j <= l; j++) {
-                    if (j % 2 == 0) {
-                        tmp1.append(p1.substring(j == 0 ? 0 : positions[j], positions[j + 1]));
-                        tmp2.append(p2.substring(j == 0 ? 0 : positions[j], positions[j + 1]));
-                    } else {
-                        tmp1.append(p2.substring(positions[j], positions[j + 1]));
-                        tmp2.append(p1.substring(positions[j], positions[j + 1]));
-                    }
-                }
-            } else {
-                tmp1 = new StringBuilder(p1);
-                tmp2 = new StringBuilder(p2);
-            }
-
-            off1.add(new BigInteger(tmp1.toString(), 2));
-            off2.add(new BigInteger(tmp2.toString(), 2));
+            p1 += appendZeros(chromosome.get(i).toString(2));
+            p2 += appendZeros(other.chromosome.get(i).toString(2));
         }
+
+        tmp1 = new StringBuilder();
+        tmp2 = new StringBuilder();
+
+        for (int j = 0; j <= l; j++) {
+            if (j % 2 == 0) {
+                tmp1.append(p1.substring(j == 0 ? 0 : positions[j], positions[j + 1]));
+                tmp2.append(p2.substring(j == 0 ? 0 : positions[j], positions[j + 1]));
+            } else {
+                tmp1.append(p2.substring(positions[j], positions[j + 1]));
+                tmp2.append(p1.substring(positions[j], positions[j + 1]));
+            }
+        }
+
+        for (int i = 0; i <  numberOfGenes; i++) {
+            off1.add(new BigInteger(tmp1.toString().substring(i * geneLength, (i + 1) * geneLength - 1), 2));
+            off2.add(new BigInteger(tmp2.toString().substring(i * geneLength, (i + 1) * geneLength - 1), 2));
+        }
+
 
         offspings.add(new RSABinaryIndividual(off1, geneLength, crossoverProbability, mutationProbability, rsa));
         offspings.add(new RSABinaryIndividual(off2, geneLength, crossoverProbability, mutationProbability, rsa));
