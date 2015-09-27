@@ -2,6 +2,7 @@ import binary.BinaryGeneticAlgorithm;
 import real.RSAGeneticAlgorithm;
 import real.RealGeneticAlgorithm;
 import rsa.FermatGeneticAlgorithm;
+import rsa.RSABinaryGeneticAlgorithm;
 import utils.RSA;
 
 import java.math.BigInteger;
@@ -12,7 +13,7 @@ import java.math.BigInteger;
  */
 public class Main {
     public static void main(String[] args) {
-        FermatGA();
+        BinaryRSAGA();
     }
 
     public static void BinaryGA(){
@@ -44,6 +45,21 @@ public class Main {
         System.out.println(ga.getFittest());
     }
 
+    public static void BinaryRSAGA(){
+        int rsaBitLength = 16;
+        int rsaParamsLength = rsaBitLength / 2;
+
+        BigInteger maxValue = new BigInteger("2").pow(rsaParamsLength).subtract(BigInteger.ONE);
+        RSA rsa = new RSA();
+        rsa.Initialize(rsaParamsLength);
+
+        System.out.println(rsa.p + " " + rsa.q);
+
+        RSABinaryGeneticAlgorithm ga = new RSABinaryGeneticAlgorithm("singlePointCrossover", false, true, 10000, 100, 2, rsaParamsLength, 0.75, 0.03, rsa);
+        ga.run();
+        System.out.println(ga.getFittest());
+    }
+
     public static void FermatGA(){
         int rsaBitLength = 16;
         int rsaParamsLength = rsaBitLength / 2;
@@ -54,7 +70,7 @@ public class Main {
 
         System.out.println(rsa.p + " " + rsa.q);
 
-        FermatGeneticAlgorithm ga = new FermatGeneticAlgorithm(true, true, 10000, 25, 1, new BigInteger("2"), maxValue, 0.75, 0.3, rsa);
+        FermatGeneticAlgorithm ga = new FermatGeneticAlgorithm(true, true, 10000, 25, 1, new BigInteger("2"), maxValue, 0.75, 0.03, rsa);
         ga.run();
         System.out.println(ga.getFittest());
     }
